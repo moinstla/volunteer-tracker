@@ -29,4 +29,25 @@ describe(Volunteer) do
       expect(volunteer1).to(eq(volunteer2))
     end
   end
+
+  describe("#save") do
+    it("saves a volunteer's information") do
+        volunteer = Volunteer.new({:name =>'Martin', :project_id => 1, :id => nil})
+        volunteer.save
+        expect(Volunteer.all).to(eq([volunteer]))
+    end
+  end
+
+  describe('.all') do
+    it('starts as an empty array') do
+      expect(Volunteer.all).to(eq([]))
+    end
+    it("returns an array of volunteers that have been saved") do
+      volunteer1 = Volunteer.new({:name =>'Martin', :project_id => 1, :id => nil})
+      volunteer1.save
+      volunteer2 = Volunteer.new({:name =>'Amanda', :project_id => 2, :id => nil})
+      volunteer2.save
+      expect(Volunteer.all).to(eq([volunteer1, volunteer2]))
+    end
+  end
 end

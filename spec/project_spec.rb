@@ -25,7 +25,7 @@ describe(Project) do
 
   describe("#save") do
     it("saves a projects's information") do
-          project = Project.new({:name => "Beach Cleanup", :id => nil})
+        project = Project.new({:name => "Beach Cleanup", :id => nil})
         project.save
         expect(Project.all).to(eq([project]))
     end
@@ -35,12 +35,29 @@ describe(Project) do
     it('starts as an empty array') do
       expect(Project.all).to(eq([]))
     end
-    it("returns an array of projects that have been saved") do
+  end
+
+  describe('.find') do
+    it('returns a project by its id') do
         project1 = Project.new({:name => "Beach Cleanup", :id => nil})
-      project1.save
-      project2 = Project.new({:name =>'Community Garden', :project_id => 2, :id => nil})
-      project2.save
-      expect(Project.all).to(eq([project1, project2]))
+        project1.save
+        project2 = Project.new({:name =>'Community Garden', :project_id => 2, :id => nil})
+        project2.save
+      expect(Project.find(project2.id)).to(eq(project2))
+    end
+  end
+
+  describe('#volunteers') do
+    it('returns a list of volunteers for a project') do
+      project = Project.new({:name => "Beach Cleanup", :id => nil})
+      project.save
+      volunteer1 = Volunteer.new({:name =>'Martin', :project_id => project.id, :id => nil})
+      volunteer1.save
+      volunteer2 = Volunteer.new({:name =>'Amanda', :project_id => project.id, :id => nil})
+      volunteer2.save
+      expect(project.volunteers).to(eq([volunteer1, volunteer2]))
+
+
     end
   end
 end

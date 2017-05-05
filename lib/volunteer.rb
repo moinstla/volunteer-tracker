@@ -3,7 +3,7 @@ class Volunteer
 
   def initialize (attributes)
     @name = attributes.fetch(:name)
-    @project_id = attributes.fetch(:project_id)
+    @project_id = attributes.fetch(:project_id).to_i
     @id = attributes.fetch(:id).to_i
   end
 
@@ -27,4 +27,11 @@ class Volunteer
     end
     volunteers
   end
+
+  # def self.find (id)
+  #   result = DB.exec("SELECT * FROM volunteers WHERE id = #{id};")
+  #   name = result.first.fetch('name')
+  #   project_id = result.first.fetch('project_id').to_i
+  #   Volunteer.new({:name => name, :project_id => project_id, :id => id})
+  # end
 end

@@ -1,38 +1,50 @@
+<div id="projects">
 <h3>Projects</h3>
 <% if @projects.any? %>
 <p>Click on a project to view volunteers or edit the project information</p>
+<% else %>
+<p><em>There are no projects yet</em></p>
+<% end %>
 <ul>
   <% @projects.each do |project| %>
   <li><a href="/project/<%= project.id %>"><%= project.name %></a></li>
   <% end %>
 </ul>
-<% end %>
 
+<h5>Add Project:</h5>
 <form action="/project" method="post">
-
-  <input id="project" name="project" type="text">
-  <button class="btn btn-info" type="submit">Add Project</button>
+  <input id="project" name="project" type="text" required>
+  <button class="btn btn-info" type="submit">Submit</button>
 </form>
-
+</div>
+<hr>
 <h3>Volunteers</h3>
-<% if @volunteers.any? %>
+
+<% if @projects.empty? %>
+<p><em>Add a project first</em></p>
+
+<% elsif @projects.any? & @volunteers.empty? %>
+ <p><em>There are no volunteers yet</em></p>
+ <% else %>
 <p>Click on a volunteer to edit volunteer information</p>
 <ul>
   <% @volunteers.each do |volunteer| %>
   <li><a href="/volunteer/<%= volunteer.id %>"><%= volunteer.name %></a></li>
   <% end %>
+  <% end %>
 </ul>
+<% if @projects.any? %>
+<h5>Add Volunteer:</h5>
+<form action="/volunteer" method="post">
+  <label for="project_id">Select Project</label>
+  <select id="project_id" name='project_id' type='text'>
+    <% @projects.each do |project| %>
+      <option value="<%= project.id%>"> <%= project.name %> </option>
+    <% end %>
+  </select>
+  <br>
 
+  <input id="volunteer" name="volunteer" type="text">
+    <button class="btn btn-info" type="submit">Submit</button>
+</form>
 <% end %>
-    <form action="/volunteer" method="post">
-      <label for="project_id">Select Project</label>
-      <select id="project_id" name='project_id' type='text'>
-        <% @projects.each do |project| %>
-          <option value="<%= project.id%>"> <%= project.name %> </option>
-        <% end %>
-      </select>
-      <br>
-
-      <input id="volunteer" name="volunteer" type="text">
-        <button class="btn btn-info" type="submit">Add Volunteer</button>
-    </form>

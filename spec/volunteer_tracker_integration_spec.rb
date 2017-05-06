@@ -9,7 +9,7 @@ describe("the adding a new project path", {:type => :feature}) do
   it ('allows the user to add a new project') do
     visit('/')
     fill_in('project', :with => 'Beach Cleanup')
-    click_button('Add Project')
+    click_button('Submit')
     expect(page).to have_content('Beach Cleanup')
   end
 end
@@ -18,7 +18,7 @@ describe("the adding a new volunteer path", {:type => :feature}) do
   it ('allows the user to add a new volunteer to a project') do
     visit('/')
     fill_in('project', :with => 'Beach Cleanup')
-    click_button('Add Project')
+    click_button('Submit')
     fill_in('volunteer', :with => 'Martin')
     click_button('Add Volunteer')
     expect(page).to have_content('Martin')

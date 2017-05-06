@@ -56,8 +56,36 @@ describe(Project) do
       volunteer2 = Volunteer.new({:name =>'Amanda', :project_id => project.id, :id => nil})
       volunteer2.save
       expect(project.volunteers).to(eq([volunteer1, volunteer2]))
+    end
+  end
 
+  describe('#update') do
+    it('updates the project name') do
+      project = Project.new({:name => "Beach Cleanup", :id => nil})
+      project.save
+      project.update({:name => "Park Cleanup"})
+      expect(project.name).to(eq("Park Cleanup"))
+    end
+  end
 
+  describe('#delete') do
+    it('deletes a project from the database') do
+      project1 = Project.new({:name => "Beach Cleanup", :id => nil})
+      project1.save
+      project2 = Project.new({:name =>'Community Garden', :project_id => 2, :id => nil})
+      project2.save
+      project1.delete
+      expect(Project.all).to(eq([project2]))
+    end
+
+    it('deletes the volunteers of a project from the database') do
+      project = Project.new({:name => "Beach Cleanup", :id => nil})
+      volunteer1 = Volunteer.new({:name =>'Martin', :project_id => 1, :id => nil})
+      volunteer1.save
+      volunteer2 = Volunteer.new({:name =>'Amanda', :project_id => 2, :id => nil})
+      volunteer2.save
+      project.delete
+      expect(project.volunteers).to(eq([]))
     end
   end
 end

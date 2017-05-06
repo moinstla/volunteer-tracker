@@ -1,42 +1,38 @@
-<h1>Volunteer Tracker</h1>
 <h3>Projects</h3>
-
-<p>Click on a project to view volunteers and edit project information</p>
+<% if @projects.any? %>
+<p>Click on a project to view or edit information</p>
 <ul>
   <% @projects.each do |project| %>
   <li><a href="/project/<%= project.id %>"><%= project.name %></a></li>
   <% end %>
 </ul>
-
+<% end %>
 
 <form action="/project" method="post">
-  <label for="project">New project:</label>
+  <label for="project">Add Project:</label>
   <input id="project" name="project" type="text">
-  <button class="btn btn-info" type="submit">Add</button>
+  <button class="btn btn-info" type="submit">Submit</button>
 </form>
 
 <h3>Volunteers</h3>
-
+<% if @volunteers.any? %>
+<p>Click on a volunteer to view or edit information</p>
 <ul>
   <% @volunteers.each do |volunteer| %>
-  <li><a href="/volunteers/<%= volunteer.id %>"><%= volunteer.name %></a></li>
+  <li><a href="/volunteer/<%= volunteer.id %>"><%= volunteer.name %></a></li>
   <% end %>
 </ul>
 
-
-
-  <div>
+<% end %>
     <form action="/volunteer" method="post">
-      <label for="volunteer">Name of new volunteer:</label>
-      <input id="volunteer" name="volunteer" type="text">
-      <label for="project_id">Select a Project</label>
-      <select name='project_id' type='text'>
+      <label for="project_id">Select Project</label>
+      <select id="project_id" name='project_id' type='text'>
         <% @projects.each do |project| %>
           <option value="<%= project.id%>"> <%= project.name %> </option>
         <% end %>
       </select>
-      <div>
-        <button class="btn btn-info" type="submit">Add Volunteer</button>
-      </div>
+      <br>
+      <label for="volunteer">Add Volunteer:</label>
+      <input id="volunteer" name="volunteer" type="text">
+        <button class="btn btn-info" type="submit">Submit</button>
     </form>
-  </div>

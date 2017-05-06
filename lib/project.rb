@@ -26,10 +26,14 @@ class Project
     projects
   end
 
-  def self.find (id)
-    result = DB.exec("SELECT * FROM projects WHERE id = #{id};")
-    name = result.first.fetch('name')
-    Project.new({:name => name, :id => id})
+  def self.find (project_id)
+    found_project = nil
+    Project.all.each do |project|
+        if project.id == project_id
+          found_project = project
+      end
+    end
+      found_project
   end
 
   def volunteers
@@ -45,14 +49,13 @@ class Project
   end
 
   def update (attributes)
-   @name = attributes.fetch(:name)
+   @name = attributes.fetch(:name, @name)
    @id = self.id
    DB.exec("UPDATE projects SET name = '#{@name}' WHERE id = #{@id};")
   end
 
   def delete
     DB.exec("DELETE FROM projects WHERE id = #{self.id};")
-    DB.exec("DELETE FROM volunteers WHERE list_id = #{self.id};")
+    DB.exec("DELETE  FROM volunteers WHERE project_id = #{self.id};")
   end
-
 end

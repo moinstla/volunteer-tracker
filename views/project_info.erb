@@ -1,10 +1,21 @@
-<%= @project.name %>
-<h3>Volunteers</h3>
-<% if @volunteers.any? %>
-<p> click on a volunteer to view/edit information</p>
+<h3>Project: <%= @project.name %></h3>
+
+<form action="/project/<%= @project.id %>" method ="post">
+  <input name="_method" type="hidden" value="patch">
+  <label for "name">Rename:</label>
+  <input id="name" name="name" type="text">
+  <button type="submit">Submit</button>
+</form>
+<h4>Volunteers:</h4>
 <ul>
   <% @volunteers.each do |volunteer| %>
-  <li><a href="/volunteers/<%= volunteer.id %>"><%= volunteer.name %></a></li>
+    <li><a href="/volunteer/<%= volunteer.id %>"><%= volunteer.name %></a></li>
   <% end %>
 </ul>
-<% end %>
+<hr>
+
+
+<form action="/project/<%= @project.id %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit">Delete Project</button>
+</form>

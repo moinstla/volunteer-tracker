@@ -44,15 +44,34 @@ describe(Volunteer) do
     end
   end
 
-  # describe('.find') do
-  #   it('returns a volunteer by their id') do
-  #     volunteer1 = Volunteer.new({:name =>'Martin', :project_id => 1, :id => nil})
-  #     volunteer1.save
-  #     volunteer2 = Volunteer.new({:name =>'Amanda', :project_id => 2, :id => nil})
-  #     volunteer2.save
-  #     expect(Volunteer.find(volunteer2.id)).to(eq(volunteer2))
-  #   end
-  # end
+  describe('.find') do
+    it('returns a volunteer by their id') do
+      volunteer1 = Volunteer.new({:name =>'Martin', :project_id => 1, :id => nil})
+      volunteer1.save
+      volunteer2 = Volunteer.new({:name =>'Amanda', :project_id => 2, :id => nil})
+      volunteer2.save
+      expect(Volunteer.find(volunteer2.id)).to(eq(volunteer2))
+    end
+  end
 
-  #need to add update and delete??
+  describe('#update') do
+    it('updates the volunteer name') do
+      volunteer = Volunteer.new({:name =>'Martin', :project_id => 1, :id => nil})
+      volunteer.save
+      volunteer.update({:name => "Marty"})
+      expect(volunteer.name).to(eq("Marty"))
+    end
+  end
+
+
+  describe('#delete') do
+    it('deletes a volunteer from the database') do
+      volunteer1 = Volunteer.new({:name =>'Martin', :project_id => 1, :id => nil})
+      volunteer1.save
+      volunteer2 = Volunteer.new({:name =>'Amanda', :project_id => 2, :id => nil})
+      volunteer2.save
+      volunteer1.delete
+      expect(Volunteer.all).to(eq([volunteer2]))
+    end
+  end
 end

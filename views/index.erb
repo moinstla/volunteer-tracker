@@ -1,6 +1,6 @@
 <h3>Projects</h3>
 <% if @projects.any? %>
-<p>Click on a project to view or edit information</p>
+<p>Click on a project to view volunteers or edit the project information</p>
 <ul>
   <% @projects.each do |project| %>
   <li><a href="/project/<%= project.id %>"><%= project.name %></a></li>
@@ -9,14 +9,14 @@
 <% end %>
 
 <form action="/project" method="post">
-  <label for="project">Add Project:</label>
+
   <input id="project" name="project" type="text">
-  <button class="btn btn-info" type="submit">Submit</button>
+  <button class="btn btn-info" type="submit">Add Project</button>
 </form>
 
 <h3>Volunteers</h3>
 <% if @volunteers.any? %>
-<p>Click on a volunteer to view or edit information</p>
+<p>Click on a volunteer to edit volunteer information</p>
 <ul>
   <% @volunteers.each do |volunteer| %>
   <li><a href="/volunteer/<%= volunteer.id %>"><%= volunteer.name %></a></li>
@@ -32,7 +32,7 @@
         <% end %>
       </select>
       <br>
-      <label for="volunteer">Add Volunteer:</label>
+
       <input id="volunteer" name="volunteer" type="text">
-        <button class="btn btn-info" type="submit">Submit</button>
+        <button class="btn btn-info" type="submit">Add Volunteer</button>
     </form>
